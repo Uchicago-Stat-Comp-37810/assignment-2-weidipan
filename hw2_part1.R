@@ -90,30 +90,36 @@ acceptance = 1-mean(duplicated(chain[-(1:burnIn),]))  # acceptance rate
 
 ### Summary: #######################
 
-par(mfrow = c(2,3))
-hist(chain[-(1:burnIn),1],nclass=30, , main="Posterior of a", xlab="True value = red line" )
-#shows posterior estimates for slope (a)
-abline(v = mean(chain[-(1:burnIn),1]))
-#vertical line of mean of estimated slope
-abline(v = trueA, col="red" )
-#vertical line of true slope
-hist(chain[-(1:burnIn),2],nclass=30, main="Posterior of b", xlab="True value = red line")
-#shows posterior estimates for intercept
-abline(v = mean(chain[-(1:burnIn),2])) #vertical line of mean of estimated intercept
-abline(v = trueB, col="red" ) #vertical line of true intercept
-hist(chain[-(1:burnIn),3],nclass=30, main="Posterior of sd", xlab="True value = red line")
-#shows posterior estimates for standard deviation of the error
-abline(v = mean(chain[-(1:burnIn),3]) ) #vertical line of mean of estimated sd
-abline(v = trueSd, col="red" ) #vertical line of true sd
-plot(chain[-(1:burnIn),1], type = "l", xlab="True value = red line" , main = "Chain values of a", )
-abline(h = trueA, col="red" )
-#Markov Chain of slope values
-plot(chain[-(1:burnIn),2], type = "l", xlab="True value = red line" , main = "Chain values of b", )
-abline(h = trueB, col="red" )
-#Markov Chain of intercept values
-plot(chain[-(1:burnIn),3], type = "l", xlab="True value = red line" , main = "Chain values of sd", )
-abline(h = trueSd, col="red" )
-#Markov Chain of sd values
+graph_summary <- function(chain,burnIn,trueA,trueB,trueSd) {
+
+  par(mfrow = c(2,3))
+  hist(chain[-(1:burnIn),1],nclass=30, , main="Posterior of a", xlab="True value = red line" )
+  #shows posterior estimates for slope (a)
+  abline(v = mean(chain[-(1:burnIn),1]))
+  #vertical line of mean of estimated slope
+  abline(v = trueA, col="red" )
+  #vertical line of true slope
+  hist(chain[-(1:burnIn),2],nclass=30, main="Posterior of b", xlab="True value = red line")
+  #shows posterior estimates for intercept
+  abline(v = mean(chain[-(1:burnIn),2])) #vertical line of mean of estimated intercept
+  abline(v = trueB, col="red" ) #vertical line of true intercept
+  hist(chain[-(1:burnIn),3],nclass=30, main="Posterior of sd", xlab="True value = red line")
+  #shows posterior estimates for standard deviation of the error
+  abline(v = mean(chain[-(1:burnIn),3]) ) #vertical line of mean of estimated sd
+  abline(v = trueSd, col="red" ) #vertical line of true sd
+  plot(chain[-(1:burnIn),1], type = "l", xlab="True value = red line" , main = "Chain values of a", )
+  abline(h = trueA, col="red" )
+  #Markov Chain of slope values
+  plot(chain[-(1:burnIn),2], type = "l", xlab="True value = red line" , main = "Chain values of b", )
+  abline(h = trueB, col="red" )
+  #Markov Chain of intercept values
+  plot(chain[-(1:burnIn),3], type = "l", xlab="True value = red line" , main = "Chain values of sd", )
+  abline(h = trueSd, col="red" )
+  #Markov Chain of sd values
+
+}
+
+graph_summary(chain,burnIn,trueA,trueB,trueSd)
 
 
 # for comparison:
